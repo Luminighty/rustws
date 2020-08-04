@@ -1,12 +1,23 @@
+#![warn(missing_docs)]
+#![crate_name = "rustws"]
+
+//! 
+//! This crate can be used to easily compile and interpret WhiteSpace programs
+//! 
+
+
 mod wsiter;
 mod symbol;
 mod instruction;
-pub mod error;
+mod error;
 
-pub use symbol::Symbol;
+/// The errors that can be thrown during runtime
+pub use error::Error;
+
+#[allow(unused_imports)]
+use symbol::Symbol;
 use instruction::{Instruction, Label};
 use wsiter::WsIter;
-use error::Error;
 use std::collections::HashMap;
 
 
@@ -34,10 +45,23 @@ fn compile(code: String, print_instructions: bool) -> Program {
 	Program { instructions, labels }
 }
 
+/// Current state of the program if no error is thrown
 pub enum Status {
-	Step, Print(String), PrintChar(i32), ReadInt, ReadChar, Exit
+	/// No action is needed from outside, next instruction can be called
+	Step, 
+	/// Print the string 
+	Print(String), 
+	/// Convert integer to a character and print it
+	PrintChar(i32), 
+	/// Read an integer from i/o
+	ReadInt, 
+	/// Read a character fom i/o
+	ReadChar, 
+	/// The program should quit without any errors. Don't call the step function anymore
+	Exit
 }
-
+/// The interpreter used for running whitespace
+/// 
 pub struct Interpreter {
 	program: Program,
 	pc: Label,
@@ -49,6 +73,16 @@ pub struct Interpreter {
 type RuntimeStatus = Result<Status, Error>;
 
 impl Interpreter {
+	/// Create an Interpreter from a source code passed as the argument
+	/// 
+	/// The print_instructions parameter prints the instructions. This should be set to True when debugging the code
+	/// 
+	/// # Example
+	/// ```
+	/// # use rustws::Interpreter;
+	/// let source = String::from("   \t\t\n");
+	/// let interpreter = Interpreter::new(source, false);
+	/// ```
 	pub fn new(code: String, print_instructions: bool) -> Interpreter {
 		Interpreter {
 			program: compile(code, print_instructions),
@@ -59,6 +93,15 @@ impl Interpreter {
 		}
 	}
 
+	/// Initialize an interpreter from a file
+	/// 
+	/// The print_instructions parameter prints the instructions. This should be set to True when debugging the code
+	/// 
+	/// # Example
+	/// ```
+	/// # use rustws::Interpreter;
+	/// let interpreter = Interpreter::from_file("main.ws", false);
+	/// ```
 	pub fn from_file(file: &str, print_instructions: bool) -> Option<Interpreter> {
 		use std::fs;
 
@@ -69,11 +112,15 @@ impl Interpreter {
 		}
 	}
 
-
+	/// Write a value on top of the stack
+	/// Should be used when the Status is set to ReadChar/ReadInt
 	pub fn write(&mut self, num: i32) { 
 		self.stack.push(num) 
 	}
 
+	/// Step to the next instructions
+	/// 
+	/// See Status and Error for the return value
 	pub fn step(&mut self) -> RuntimeStatus {
 		if let Some(&instr) = self.program.instructions.get(self.pc) {
 			self.step_instr(instr)
@@ -82,7 +129,8 @@ impl Interpreter {
 		}
 	}
 
-	pub fn pc(&self) -> Label {
+	/// Current Program Counter
+	pub fn pc(&self) -> usize {
 		self.pc
 	}
 }

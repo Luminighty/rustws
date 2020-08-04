@@ -8,9 +8,10 @@ edition = "2018"
 name = "rustws"
 path = "src/lib.rs"
 
-[[bin]]
-name = "wscomp"
-path = "src/main.rs"
+
+# [[bin]]
+# name = "wscomp"
+# path = "src/main.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
