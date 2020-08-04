@@ -1,8 +1,12 @@
 [package]
 name = "rustws"
-version = "0.1.0"
+version = "1.0.0"
 authors = ["Luminight <balazs922@gmail.hu>"]
 edition = "2018"
+description = "A simple WhiteSpace interpreter"
+repository = "https://github.com/Luminighty/rustws"
+license = "MIT"
+keywords = ["whitespace", "interpreter"]
 
 [lib]
 name = "rustws"
