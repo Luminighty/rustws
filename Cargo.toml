@@ -1,7 +1,7 @@
 [package]
 name = "rustws"
 version = "1.0.0"
-authors = ["Luminight <balazs922@gmail.hu>"]
+authors = ["Luminight <balazscsabai98@gmail.com>"]
 edition = "2018"
 description = "A simple WhiteSpace interpreter"
 repository = "https://github.com/Luminighty/rustws"
