@@ -1,0 +1,18 @@
+[package]
+name = "rustws"
+version = "0.1.0"
+authors = ["Luminight <balazs922@gmail.hu>"]
+edition = "2018"
+
+[lib]
+name = "rustws"
+path = "src/lib.rs"
+
+[[bin]]
+name = "wscomp"
+path = "src/main.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+num = "0.3.0"

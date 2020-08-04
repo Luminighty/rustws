@@ -1,0 +1,11 @@
+#[allow(non_camel_case_types)]
+#[derive(Debug)]
+pub enum Error {
+	PC_OUT_OF_BOUNDS,
+	UNIMPLEMENTED_INSTRUCTION, 
+	EMPTY_STACK,
+	EMPTY_FLOW_STACK,
+	DIVISION_BY_ZERO,
+	UNDEFINED_HEAP_ADDRESS,
+	UNDEFINED_LABEL,
+}

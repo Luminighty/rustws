@@ -1,0 +1,40 @@
+-- Read Length and store in heap
+SS S L
+TLTT
+TTS
+
+-- [] {0: Length}
+SS S L
+-- Sum: 0 -> [0] {0: Length}
+
+-- Label: 0
+LSS SS L
+
+-- DEC LENGTH
+SS S L
+TTT
+SS ST L
+TSST
+-- JUMP TO LABEL IF LESS THAN 0
+LTT ST L
+-- Save length
+SS S L
+SLT
+TTS
+-- [Sum] {0: Length}
+
+-- Read number and add it to sum
+TLTT
+TSSS
+-- Jump to Label 0
+LSL SS L
+
+
+-- Label: 1
+LSS ST L
+-- [Sum, -1], then print
+SLL
+TLST
+
+-- END
+LLL
